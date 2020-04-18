@@ -1,0 +1,32 @@
+.root {
+  text-align: center;
+}
+
+.root-logo {
+  height: 40vmin;
+}
+
+.root-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.root-link {
+  color: #09d3ac;
+}
+
+.score {
+  height: 10vh;
+
+  p {
+    margin-block-start: 0;
+    margin-block-end: 0;
+    line-height: 10vh;
+  }
+}
