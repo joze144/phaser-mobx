@@ -5,7 +5,7 @@ export interface IGameStore {
   currentLevel: number;
   currentScore: number;
   completeLevel(): void;
-  increaseScore(increment: number): void;
+  increaseScore(total: number): void;
   resetScore(): void;
 }
 
@@ -20,8 +20,8 @@ export class GameStore implements IGameStore {
 
 
   @action
-  increaseScore(increment: number) {
-    this.currentScore = this.currentScore + increment;
+  increaseScore(total: number) {
+    this.currentScore = total;
   }
 
   @action
