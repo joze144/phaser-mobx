@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { observer } from 'mobx-react';
 import 'phaser';
-import { COMPLETE_LEVEL, INCREASE_SCORE, RESET_SCORE } from './Events';
+import { GAME_END, GAME_START, INCREASE_SCORE, RESET_SCORE } from './Events';
 import CurrentScoreView from './CurrentScoreView';
 import { IGameStore } from './gameStore';
 import { SnakeScene } from './SnakeScene';
@@ -51,21 +51,21 @@ export class GameView extends Component<Props> {
   }
 }
 
+// Custom event that change value in Mobx store
 function addListeners(game: Phaser.Game, props: Props) {
-  // This will be required for every custom event we want, unless i can figure out a way of doing it dynamically.
-  game.events.on(COMPLETE_LEVEL, (level: number) => {
-    console.log('level complete')
-    // do some cool animation.
-    props.gameStore!.completeLevel();
+  game.events.on(GAME_START, (level: number) => {
+    props.gameStore!.gameStart();
+  });
+
+  game.events.on(GAME_END, (level: number) => {
+    props.gameStore!.gameEnd();
   });
 
   game.events.on(INCREASE_SCORE, (amount: number) => {
-    console.log('increase')
     props.gameStore!.increaseScore(amount);
   });
 
   game.events.on(RESET_SCORE, () => {
-    console.log('reset')
     props.gameStore!.resetScore();
   });
 }

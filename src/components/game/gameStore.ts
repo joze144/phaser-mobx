@@ -4,7 +4,8 @@ import { action, observable } from 'mobx';
 export interface IGameStore {
   currentLevel: number;
   currentScore: number;
-  completeLevel(): void;
+  gameStart(): void;
+  gameEnd(): void;
   increaseScore(total: number): void;
   resetScore(): void;
 }
@@ -15,6 +16,7 @@ export class GameStore implements IGameStore {
     this.rootStore = rootStore;
   }
 
+  @observable isCurrentlyPlaying: boolean = true;
   @observable currentLevel: number = 0;
   @observable currentScore: number = 0;
 
@@ -30,7 +32,12 @@ export class GameStore implements IGameStore {
   }
 
   @action
-  completeLevel() {
-    this.currentLevel = this.currentLevel + 1;
+  gameEnd() {
+    this.isCurrentlyPlaying = false;
+  }
+
+  @action
+  gameStart() {
+    this.isCurrentlyPlaying = true;
   }
 }

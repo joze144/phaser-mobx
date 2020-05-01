@@ -1,4 +1,4 @@
-import { INCREASE_SCORE } from './Events';
+import { GAME_END, GAME_START, INCREASE_SCORE, RESET_SCORE } from './Events';
 
 const UP = 0;
 const DOWN = 1;
@@ -59,6 +59,22 @@ export class SnakeScene extends Phaser.Scene {
     this.children.add(this.food);
     this.snake = new Snake(this, 8, 8, this.size);
     this.cursors = this.input.keyboard.createCursorKeys();
+
+    this.input.on('pointerdown', () => {
+      if (!this.snake.alive) {
+        this.reset();
+        this.game.events.emit(RESET_SCORE);
+        this.game.events.emit(GAME_START);
+      }
+    });
+  }
+
+  reset() {
+    this.children.removeAll();
+    this.total = 0;
+    this.food = new Food(this, 3, 4, this.size);
+    this.children.add(this.food);
+    this.snake = new Snake(this, 8, 8, this.size);
   }
 
   eat() {
@@ -129,6 +145,9 @@ export class SnakeScene extends Phaser.Scene {
   }
 
   move(time: number) {
+    if(!this.snake.alive) {
+      return false;
+    }
     switch (this.snake.heading) {
       case LEFT:
         this.snake.headPosition.x = Phaser.Math.Wrap(this.snake.headPosition.x - 1, 0, 40);
@@ -153,6 +172,7 @@ export class SnakeScene extends Phaser.Scene {
     if (hitBody) {
       console.log('dead');
       this.snake.alive = false;
+      this.game.events.emit(GAME_END);
       return false;
     }
     else {
