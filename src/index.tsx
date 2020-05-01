@@ -1,16 +1,24 @@
 import React from 'react';
 import { render } from 'react-dom';
+import ThemeProvider from '@material-ui/styles/ThemeProvider';
+import theme from './components/Theme';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
 import { Provider } from 'mobx-react';
 import { createStores } from './components';
 import { GameView } from './components/game/GameView';
+import Footer from './components/Footer/Footer';
 
 const stores = createStores();
 
 render(
   <Provider store={stores}>
-    <GameView gameStore={stores.gameStore} />
+    <ThemeProvider theme={theme}>
+      <div className="container-flex">
+        <GameView gameStore={stores.gameStore} />
+      </div>
+      <Footer />
+    </ThemeProvider>
   </Provider>,
   document.getElementById('root')
 );

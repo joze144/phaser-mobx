@@ -7,7 +7,7 @@ const RIGHT = 3;
 
 class Food extends Phaser.GameObjects.Image {
   constructor (scene: any, x: number, y: number, size: number) {
-    super(scene, x * size, y * size, 'food')
+    super(scene, x * size + size / 2, y * size + size / 2, 'food')
   }
 }
 
@@ -47,7 +47,6 @@ export class SnakeScene extends Phaser.Scene {
   total = 0;
   snake: any;
   food: any;
-  // cursors = this.input.keyboard.createCursorKeys();
 
   preload() {
     this.load.image('food', 'images/heart24.png');
@@ -209,7 +208,7 @@ export class SnakeScene extends Phaser.Scene {
     //  are valid for the new piece of food
 
     //  A Grid we'll use to reposition the food each time it's eaten
-    var testGrid = [];
+    let testGrid = [];
 
     for (var y = 0; y < 30; y++) {
       testGrid[y] = [];
@@ -223,10 +222,10 @@ export class SnakeScene extends Phaser.Scene {
     this.updateGrid(testGrid);
 
     //  Purge out false positions
-    var validLocations = [];
+    let validLocations = [];
 
-    for (var y = 0; y < 30; y++) {
-      for (var x = 0; x < 40; x++) {
+    for (let y = 0; y < 30; y++) {
+      for (let x = 0; x < 40; x++) {
         if (testGrid[y][x] === true) {
           //  Is this position valid for food? If so, add it here ...
           validLocations.push({ x: x, y: y });
@@ -235,12 +234,9 @@ export class SnakeScene extends Phaser.Scene {
     }
 
     if (validLocations.length > 0) {
-      //  Use the RNG to pick a random food position
-      var pos = Phaser.Math.RND.pick(validLocations);
-
-      //  And place it
-      this.food.setPosition(pos.x * this.size, pos.y * this.size);
-
+      //  Pick a random food position
+      const pos = Phaser.Math.RND.pick(validLocations);
+      this.food.setPosition(pos.x * this.size + this.size / 2, pos.y * this.size + this.size / 2);
       return true;
     }
     else {

@@ -5,6 +5,10 @@ import { GAME_END, GAME_START, INCREASE_SCORE, RESET_SCORE } from './Events';
 import CurrentScoreView from './CurrentScoreView';
 import { IGameStore } from './gameStore';
 import { SnakeScene } from './SnakeScene';
+import { Container } from '@material-ui/core';
+import Box from '@material-ui/core/Box';
+import Paper from '@material-ui/core/Paper';
+import Grid from '@material-ui/core/Grid';
 
 interface Props {
   gameStore?: IGameStore;
@@ -43,10 +47,14 @@ export class GameView extends Component<Props> {
 
   render() {
     return (
-      <div>
-        <CurrentScoreView currentScore={this.props.gameStore!.currentScore} />
-        <div id="game" />
-      </div>
+      <Container maxWidth="lg">
+        <Box display="flex">
+        <Box m="auto" textAlign="center" maxWidth="960px">
+          <CurrentScoreView currentScore={this.props.gameStore!.currentScore} />
+          <div id="game" className="game-screen" />
+        </Box>
+        </Box>
+      </Container>
     )
   }
 }
