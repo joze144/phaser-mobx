@@ -1,12 +1,15 @@
 import * as React from 'react';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import HeartIcon from '../Icon/HeartIcon';
+import Box from '@material-ui/core/Box';
+import { observer } from 'mobx-react';
+import { IGameStore } from './gameStore';
 
 interface Props {
-  currentScore: Number;
+  gameStore?: IGameStore;
 }
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
   container: {
     position: 'relative',
     width: '100%',
@@ -24,16 +27,23 @@ const useStyles = makeStyles({
     width: '100%',
     zIndex: 1000,
   },
-});
+  box: {
+    backgroundColor: theme.palette.primary.main
+    }
+}));
 
 const CurrentScoreView = (props: Props) => {
   const styles = useStyles();
 
   return (
-    <div className={styles.container}>
-      <div className={styles.heartIcon}><HeartIcon /></div>
-      <div className={styles.overlay}><div>{props.currentScore}</div></div>
-  </div>);
+    <Box display="flex" className={styles.box}>
+      <Box m="auto" textAlign="center">
+        <div className={styles.container}>
+          <div className={styles.heartIcon}><HeartIcon /></div>
+          <div className={styles.overlay}><div>{props.gameStore!.currentScore}</div></div>
+        </div>
+      </Box>
+    </Box>);
 };
 
-export default CurrentScoreView;
+export default observer(CurrentScoreView);

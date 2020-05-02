@@ -2,13 +2,9 @@ import React, { Component } from 'react';
 import { observer } from 'mobx-react';
 import 'phaser';
 import { GAME_END, GAME_START, INCREASE_SCORE, RESET_SCORE } from './Events';
-import CurrentScoreView from './CurrentScoreView';
 import { IGameStore } from './gameStore';
 import { SnakeScene } from './SnakeScene';
-import { Container } from '@material-ui/core';
 import Box from '@material-ui/core/Box';
-import Paper from '@material-ui/core/Paper';
-import Grid from '@material-ui/core/Grid';
 
 interface Props {
   gameStore?: IGameStore;
@@ -34,7 +30,7 @@ export class GameView extends Component<Props> {
       type: Phaser.CANVAS,
       width: 960,
       height: 720,
-      backgroundColor: '#c2c2c2',
+      backgroundColor: "#f0f4c3",
       parent: 'game',
       scene: SnakeScene
     };
@@ -49,7 +45,6 @@ export class GameView extends Component<Props> {
     return (
         <Box display="flex">
         <Box m="auto" textAlign="center">
-          <CurrentScoreView currentScore={this.props.gameStore!.currentScore} />
           <div id="game" className="game-screen" />
         </Box>
         </Box>

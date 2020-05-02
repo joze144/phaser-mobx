@@ -8,12 +8,14 @@ import { Provider } from 'mobx-react';
 import { createStores } from './components';
 import { GameView } from './components/game/GameView';
 import Footer from './components/Footer/Footer';
+import CurrentScoreView from './components/game/CurrentScoreView';
 
 const stores = createStores();
 
 render(
   <Provider store={stores}>
     <ThemeProvider theme={theme}>
+      <CurrentScoreView gameStore={stores.gameStore} />
       <div className="container-flex">
         <GameView gameStore={stores.gameStore} />
       </div>
