@@ -34,7 +34,7 @@ export class GameView extends Component<Props> {
       type: Phaser.CANVAS,
       width: 960,
       height: 720,
-      backgroundColor: '#e4e4e4',
+      backgroundColor: '#c2c2c2',
       parent: 'game',
       scene: SnakeScene
     };
@@ -47,14 +47,12 @@ export class GameView extends Component<Props> {
 
   render() {
     return (
-      <Container maxWidth="lg">
         <Box display="flex">
-        <Box m="auto" textAlign="center" maxWidth="960px">
+        <Box m="auto" textAlign="center">
           <CurrentScoreView currentScore={this.props.gameStore!.currentScore} />
           <div id="game" className="game-screen" />
         </Box>
         </Box>
-      </Container>
     )
   }
 }

@@ -12,7 +12,7 @@ const useStyles = makeStyles(theme => ({
   root: {
     display: 'flex',
     flexDirection: 'column',
-    marginTop: 50,
+    marginTop: 10,
     bottom: 0,
   },
   rootrow: {
